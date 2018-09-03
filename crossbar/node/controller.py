@@ -464,8 +464,9 @@ class NodeController(NativeProcess):
 
         # forward explicit reactor selection
         #
-        if 'reactor' in options and sys.platform in options['reactor']:
-            args.extend(['--reactor', options['reactor'][sys.platform]])
+        reactor = os.environ.get('CROSSBAR_REACTOR', None)
+        if reactor:
+            args.extend(['--reactor', reactor])
         # FIXME
         # elif self._node.options.reactor:
         #    args.extend(['--reactor', self._node.options.reactor])
